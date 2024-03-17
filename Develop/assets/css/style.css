@@ -29,16 +29,31 @@ del.classList.add('task-card-del') */
   flex-direction: column;
   background-color: var(--red-back);
   height: 200px;
-  margin: 0px 50px;
+  margin: 20px 50px;
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
+  color: white;
+  font-family: sans-serif;
+}
+
+.task-card-headdiv{
+  width: 100%;
+  background-color: rgba(237, 75, 75, 0.481);
+  margin-bottom: 0;
+  border-bottom: 1px solid dimgray;
+}
+
+.task-card-title{
+  cursor: grab;
+  /* margin-bottom: -10px; */
 
 }
 
-.task-card-spacer{
-  border: 1px solid dimgray;
-  width: 100%;
+.task-card-title:active{
+  cursor: grabbing;
+  /* margin-bottom: -10px; */
+
 }
 
 .task-card-desc{
@@ -54,6 +69,6 @@ del.classList.add('task-card-del') */
   width: 75px;
   margin-bottom: 10px;
   background-color: var(--red-back);
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 5px;
 }
