@@ -9,6 +9,8 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 let taskIds = getIds()
 let newTaskID = 0
 
+
+createTaskCard()
 //pulls used ID's into an array and returns it for taskID variable
 function getIds(){
     const localArray = []
@@ -28,7 +30,32 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+    const to_do = document.getElementById('todo-cards')
+    //use DOM to create task card and child elements
+    const container = document.createElement('div')
+    const title = document.createElement('h2')
+    const spacer = document.createElement('div')
+    const desc = document.createElement('p')
+    const date = document.createElement('p')
+    const del = document.createElement('button')
 
+    //Adding classes to created elements
+    container.classList.add("task-card-container")
+    title.classList.add("task-card-title")
+    spacer.classList.add('task-card-spacer')
+    desc.classList.add('task-card-desc')
+    date.classList.add('task-card-date')
+    del.classList.add('task-card-del')
+
+    //Appending elements to the container
+    to_do.appendChild(container)
+    container.appendChild(title)
+    container.appendChild(spacer)
+    container.appendChild(desc)
+    container.appendChild(date)
+    container.appendChild(del)
+
+ 
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -52,8 +79,8 @@ function handleAddTask(){
 
     tasks.push(newTask)
     localStorage.setItem('tasks', JSON.stringify(tasks))
-    console.log(taskName, taskDesc, djDate )
-    console.log(dayjs(djDate))
+    // console.log(taskName, taskDesc, djDate )
+    // console.log(dayjs(djDate))
 }
 
 // Todo: create a function to handle deleting a task
