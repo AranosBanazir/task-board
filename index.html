@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 
-  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./Develop/assets/css/style.css" />
   <title>Task Board</title>
 </head>
 
@@ -25,6 +25,14 @@
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
     <!-- Todo: Create a modal with a form to add tasks -->
+      <div id="add-task-dialog">
+        <input type="text" id="task-input">
+        <input type="date" id="task-date">
+        <textarea id="task-desc" name="task-desc" id="" cols="15" rows="10"></textarea>
+        <button style="height: 50px; width: 50px;" onclick="handleAddTask(event)"></button>
+
+      </div>
+      
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">
         <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
@@ -67,7 +75,7 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
 
-  <script src="./assets/js/script.js"></script>
+  <script src="./Develop/assets/js/script.js"></script>
 </body>
 
 </html>
