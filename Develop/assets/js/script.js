@@ -9,7 +9,7 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 let taskIds = getIds()
 let newTaskID = 0
 
-renderTaskList()
+
 
 //pulls used ID's into an array and returns it for taskID variable
 function getIds(){
@@ -109,7 +109,7 @@ function createTaskCard(task) {
 
     console.log(taskInfo.name)
     // console.log(taskList)
-    
+    container.setAttribute('id', `container-${taskInfo.id}`)
     title.innerText = taskInfo.name
     desc.innerText = taskInfo.desc
     date.innerText = taskInfo.date
@@ -127,7 +127,19 @@ function renderTaskList() {
         createTaskCard(id)
     }
 
-    $('.task-card-container').draggable()
+    $('.task-card-container').draggable({
+        drop: function(){
+           let container = document.getElementById(`${this.id}`)
+        },
+        out: function(){
+            console.log(this)
+        },
+        grid: [100, 100],
+        snapTolerance: 10,
+        cursor: 'grabbing',
+        stack: '.swim-lanes'
+       
+    })
 
 }
 
@@ -174,7 +186,26 @@ function handleDrop(event, ui) {
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
-    $('#todo-cards').droppable("enable")
-});
+    renderTaskList()
+    $('#todo-cards').droppable({
+        accept: ".task-card-container",
+        drop: function(e,u){
+            document.getElementById(`${e.target.id}`).appendChild(`${u.draggable[0].id}`)
+                console.log(e.target.id, u.draggable[0].id)
+        }
+    })
 
-//adding function for button click MIGHT CHANGE
+    $('#done-cards').droppable({
+        accept: ".task-card-container",
+        drop: function(e,u){
+                console.log(e.target.id)
+        }
+    })
+
+
+    // $("#add-task-dialog").dialog({
+    //     modal: true,
+    // })
+})
+
+
