@@ -12,6 +12,40 @@ body {
   min-height: 60vh;
 }
 
+#done-cards{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  border: 2px solid red;
+  position: relative;
+}
+
+#todo-cards{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  border: 2px solid red;
+  position: relative;
+}
+
+#in-progress-cards{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  border: 2px solid red;
+  position: relative;
+
+}
+
+
+.ui_draggable{
+  top:0 !important;
+  left: 0 !important;
+}
+
 .task-card {
   margin: 0 auto;
 }
@@ -56,13 +90,13 @@ del.classList.add('task-card-del') */
 
 }
 
-.task-card-desc{
+/* .task-card-desc{
 
 }
 
 .task-card-date{
 
-}
+} */
 
 .task-card-del{
   height: 30px;

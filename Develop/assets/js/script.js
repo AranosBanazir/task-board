@@ -135,9 +135,9 @@ function renderTaskList() {
             console.log(this)
         },
         grid: [100, 100],
-        snapTolerance: 10,
+        // snapTolerance: 2,
         cursor: 'grabbing',
-        stack: '.swim-lanes'
+        stack: '.ui-droppable'
        
     })
 
@@ -190,15 +190,23 @@ $(document).ready(function () {
     $('#todo-cards').droppable({
         accept: ".task-card-container",
         drop: function(e,u){
-            document.getElementById(`${e.target.id}`).appendChild(`${u.draggable[0].id}`)
-                console.log(e.target.id, u.draggable[0].id)
+            let child = document.getElementById(u.draggable[0].id)
+            // document.getElementById(`${u.draggable[0].id}`).remove()
+            document.getElementById(`${e.target.id}`).appendChild(child)
+            console.log('moved')
+                
         }
     })
 
     $('#done-cards').droppable({
         accept: ".task-card-container",
         drop: function(e,u){
-                console.log(e.target.id)
+            let child = document.getElementById(u.draggable[0].id)
+            // document.getElementById(`${u.draggable[0].id}`).remove()
+            document.getElementById(`${e.target.id}`).appendChild(child)
+            console.log('moved')
+                
+                
         }
     })
 
