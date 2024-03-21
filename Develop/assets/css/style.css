@@ -17,7 +17,6 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   height: 100%;
-  border: 2px solid red;
   position: relative;
 }
 
@@ -26,7 +25,6 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   height: 100%;
-  border: 2px solid red;
   position: relative;
 }
 
@@ -35,7 +33,6 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   height: 100%;
-  border: 2px solid red;
   position: relative;
 
 }
@@ -54,20 +51,15 @@ body {
   cursor: grab;
 }
 
-/* container.classList.add("task-card-container")
-desc.classList.add('task-card-desc')
-date.classList.add('task-card-date')
-del.classList.add('task-card-del') */
+
 .task-card-container{
   display: flex;
   flex-direction: column;
-  background-color: var(--red-back);
   height: 200px;
   margin: 20px 50px;
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
-  color: white;
   font-family: sans-serif;
 }
 
@@ -86,17 +78,26 @@ del.classList.add('task-card-del') */
 
 .task-card-title:active{
   cursor: grabbing;
-  /* margin-bottom: -10px; */
 
 }
 
-/* .task-card-desc{
 
+
+
+.ui-dialog{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  
+ 
 }
 
-.task-card-date{
-
-} */
+.ui-dialog input, label, textarea{
+  width: 100%;
+  border-radius: 3px;
+}
 
 .task-card-del{
   height: 30px;
@@ -105,4 +106,30 @@ del.classList.add('task-card-del') */
   background-color: var(--red-back);
   border: 1px solid white;
   border-radius: 5px;
+}
+
+.ui-dialog-titlebar{
+  text-align: left;
+  font-weight: bold;
+  background-color: transparent;
+  border-bottom: 1px solid black;
+
+  
+}
+
+.ui-dialog-titlebar-close{
+  background: url('https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+
+#task-submit{
+  border-radius: 5px;
+  width: 100px;
+  background-color: forestgreen;
+  color: white;
+  font-weight: bold;
+  justify-self: center;
 }
