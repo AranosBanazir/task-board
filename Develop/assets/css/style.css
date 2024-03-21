@@ -12,36 +12,18 @@ body {
   min-height: 60vh;
 }
 
-#done-cards{
+
+
+.card-row{
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: 100%;
-  position: relative;
-}
-
-#todo-cards{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  height: 100%;
-  position: relative;
-}
-
-#in-progress-cards{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  height: 100%;
-  position: relative;
-
 }
 
 
-.ui_draggable{
-  top:0 !important;
-  left: 0 !important;
-}
+
+
 
 .task-card {
   margin: 0 auto;
