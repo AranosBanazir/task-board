@@ -63,6 +63,7 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+    let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
     let taskInfo;
     
     
@@ -99,7 +100,11 @@ function createTaskCard(task) {
     del.classList.add('task-card-del')
 
     //Appending elements to the container
-    to_do.appendChild(container)
+    const lane = taskInfo.state
+
+    const position = document.querySelector(`.${lane}`)
+    // console.log(position)
+    position.appendChild(container)
     container.appendChild(headDiv)
     headDiv.appendChild(title)
     // container.appendChild(spacer)
@@ -107,7 +112,7 @@ function createTaskCard(task) {
     container.appendChild(date)
     container.appendChild(del)
 
-    console.log(taskInfo.name)
+    // console.log(taskInfo.name)
     // console.log(taskList)
     container.setAttribute('id', `container-${taskInfo.id}`)
     title.innerText = taskInfo.name
@@ -123,23 +128,15 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
+    const taskCards = document.querySelectorAll('.task-card-container')
+    for (const task of taskCards){
+        task.remove()
+    }
     for(const id of taskIds){
         createTaskCard(id)
     }
 
-    $('.task-card-container').draggable({
-        drop: function(){
-           let container = document.getElementById(`${this.id}`)
-        },
-        out: function(){
-            console.log(this)
-        },
-        grid: [100, 100],
-        // snapTolerance: 2,
-        cursor: 'grabbing',
-        stack: '.ui-droppable'
-       
-    })
+    $('.task-card-container').draggable({})
 
 }
 
@@ -154,7 +151,8 @@ function handleAddTask(){
         date: djDate,
         name: taskName,
         desc: taskDesc,
-        id: generateTaskId()
+        id: generateTaskId(),
+        state: 'todo'
         
     }
 
@@ -181,39 +179,48 @@ function handleDeleteTask(event){
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-
-}
+       
+        
+    }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList()
-    $('#todo-cards').droppable({
-        accept: ".task-card-container",
-        drop: function(e,u){
-            let child = document.getElementById(u.draggable[0].id)
-            // document.getElementById(`${u.draggable[0].id}`).remove()
-            document.getElementById(`${e.target.id}`).appendChild(child)
-            console.log('moved')
-                
+
+
+    $('.card-row').droppable({
+        drop: function(event, ui){
+        const str = ui.draggable[0].id
+        const id = str.replace('container-', '')
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+        
+
+        if (event.target.classList.contains('todo')){
+            // console.log('still needs done')
+            for (const task in tasks){
+                if (tasks[task].id == id){
+                    tasks[task].state = 'todo'
+                }
+               }
+        }else if (event.target.classList.contains('in-progress')){
+            for (const task in tasks){
+                if (tasks[task].id == id){
+                    tasks[task].state = 'in-progress'
+                }
+               }
+        }else if (event.target.classList.contains('done')){
+            for (const task in tasks){
+                if (tasks[task].id == id){
+                    tasks[task].state = 'done'
+                }
+               }
+        }
+        
+       
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+        renderTaskList()
         }
     })
 
-    $('#done-cards').droppable({
-        accept: ".task-card-container",
-        drop: function(e,u){
-            let child = document.getElementById(u.draggable[0].id)
-            // document.getElementById(`${u.draggable[0].id}`).remove()
-            document.getElementById(`${e.target.id}`).appendChild(child)
-            console.log('moved')
-                
-                
-        }
-    })
 
-
-    // $("#add-task-dialog").dialog({
-    //     modal: true,
-    // })
 })
-
-
