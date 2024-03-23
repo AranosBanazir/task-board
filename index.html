@@ -25,28 +25,48 @@
   </header>
   <div class="container">
     <div class="text-center mb-5">
-      <button class="btn btn-success" >Add Task</button>
-      <!-- data-bs-toggle="modal" data-bs-target="#formModal" -->
+      <button class="btn btn-success"  data-bs-target="#myModal" data-bs-toggle="modal">Add Task</button>
+      <!--  -->
     </div>
 
-    <!-- Todo: Create a modal with a form to add tasks -->
-      <form id="#formModal" style="display: none;" >
-        <div id="input-div">
-        <label for="task-input">Task name:</label>
-        <input type="text" id="task-input">
-      
-      
-        <label for="task-date">Due date:</label>
-        <input type="date" id="task-date">
-      </div>
-      <div>
-        <label for="task-desc">Task description:</label>
-        <textarea id="task-desc" name="task-desc" ></textarea>
-      </div>
-        <div id="btn-div">
-        <button id= "task-submit" type="submit" >Add task</button>
+    <!-- Modified example from: https://getbootstrap.com/docs/4.0/components/modal/  -->
+
+    <!-- Button trigger modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Add a task </h5>
+            <button id="close-btn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="modal-form">
+              <div id="input-div">
+                <div>
+                  <label for="task-input">Task Name:</label>
+                  <input type="text" id="task-input">
+                  </div>
+                <div>
+                  <label for="task-date">Due Date:</label>
+                  <input type="date" id="task-date">
+                </div>
+              </div>
+              <label for="task-desc">Task Description:</label>
+              <textarea name="task-desc" id="task-desc"></textarea>
+
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success"  id="form-add-task">Add Task</button>
+          </div>
         </div>
-      </form>
+      </div>
+    </div>
+
+
       
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">

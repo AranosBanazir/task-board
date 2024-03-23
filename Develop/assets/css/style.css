@@ -43,6 +43,7 @@ body {
   align-items: center;
   border-radius: 5px;
   font-family: sans-serif;
+  border: 1px solid black;
 }
 
 .task-card-headdiv{
@@ -54,7 +55,6 @@ body {
 
 .task-card-title{
   cursor: grab;
-  /* margin-bottom: -10px; */
 
 }
 
@@ -63,22 +63,14 @@ body {
 
 }
 
-
-
-
-.ui-dialog{
+#modal-form{
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  margin: 0;
-  padding: 0;
-  
- 
 }
 
-.ui-dialog input, label, textarea{
-  width: 100%;
-  border-radius: 3px;
+#input-div{
+  display: flex;
+  flex-direction: row;
 }
 
 .task-card-del{
@@ -90,28 +82,9 @@ body {
   border-radius: 5px;
 }
 
-.ui-dialog-titlebar{
-  text-align: left;
-  font-weight: bold;
-  background-color: transparent;
-  border-bottom: 1px solid black;
 
-  
-}
-
-.ui-dialog-titlebar-close{
-  background: url('https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-
-
-#task-submit{
-  border-radius: 5px;
-  width: 100px;
-  background-color: forestgreen;
-  color: white;
-  font-weight: bold;
-  justify-self: center;
+#modal-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

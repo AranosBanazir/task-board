@@ -13,21 +13,19 @@ const addTask = document.querySelector(".btn");
 
 //pulls used ID's into an array and returns it for taskID variable
 function getIds() {
-  const localArray = [];
+  const tempArr = [];
   const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
   for (const i in taskList) {
-    localArray.push(taskList[i].id);
+    tempArr.push(taskList[i].id);
   }
-  return localArray;
+  return tempArr;
 }
 
-//Compare and change styles
+//Compare and change styles based on date due
 function setTaskColors(task) {
   const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
   const element = document.getElementById(`container-${task}`);
-  const headerDivEl = document.querySelector(
-    `#container-${task} .task-card-headdiv`
-  );
+  const headerDivEl = document.querySelector(`#container-${task} .task-card-headdiv`);
   let taskInfo;
 
   const lateStyles = {
@@ -50,13 +48,15 @@ function setTaskColors(task) {
     }
   }
 
+  //checkes the saved state of the task, and sets the style based on the style info above
   if (taskInfo.state == "done") {
     for (const style in earlyStyles) {
       element.style[style] = earlyStyles[style];
     }
     headerDivEl.style.backgroundColor = "rgba(189, 177, 183, 0.8)";
+    //uses Dayjs to check if the dates are before or after the due date of the task
   } else if (dayjs().isBefore(dayjs(taskInfo.date))) {
-    if (dayjs(taskInfo.date).$D - dayjs().$D <= 3 && dayjs(taskInfo.date).$D - dayjs().$D > 0) {
+    if (dayjs(taskInfo.date).$D - dayjs().$D <= 3 && dayjs(taskInfo.date).$D - dayjs().$D >= 0) {
       for (const style in soonStyles) {
         element.style[style] = soonStyles[style];
       }
@@ -66,15 +66,25 @@ function setTaskColors(task) {
           }
           headerDivEl.style.backgroundColor = "rgba(189, 177, 183, 0.8)";
     }
+    //checks if the due date of the task is after the current date, or if the date is today
     } else if (dayjs().isAfter(dayjs(taskInfo.date))) {
-      for (const style in lateStyles) {
-        element.style[style] = lateStyles[style];
-      }
+         if (dayjs(taskInfo.date).$D - dayjs().$D === 0){
+          for (const style in soonStyles) {
+            element.style[style] = soonStyles[style];
+          }
+            
+
+
+        }else{
+            for (const style in lateStyles) {
+            element.style[style] = lateStyles[style];
+            }
+        }
     }
   }
 
 
-// Todo: create a function to generate a unique task id
+//create a function to generate a unique task id
 function generateTaskId() {
   //return new task id to handleAddTask
   //if the list of ID's does not contain the saved next ID var then return the nextID var and set a new nextID
@@ -111,7 +121,7 @@ function generateTaskId() {
   return newId;
 }
 
-// Todo: create a function to create a task card
+//create a function to create a task card
 function createTaskCard(task) {
   const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
   let taskInfo;
@@ -175,21 +185,29 @@ function createTaskCard(task) {
   del.innerText = "Delete";
 }
 
-// Todo: create a function to render the task list and make cards draggable
+//create a function to render the task list and make cards draggable
 function renderTaskList() {
   const taskCards = document.querySelectorAll(".task-card-container");
+  //updates the task list from LS
   getIds();
 
   for (const task of taskCards) {
+    //deletes all tasks so they can be redrawn
     task.remove();
   }
   for (const id of taskIds) {
-    // console.log(taskIds)
     createTaskCard(id);
+    //creates and sets styles for the tasks based on saved unique id
     setTaskColors(id);
   }
 
-  $(".task-card-container").draggable({});
+  //makes tasks draggable and unable to be dragged outside of the bounds of the lanes, as well as stacking them above the lanes
+  //to prevent tasks from going under the lane div's
+
+  $(".task-card-container").draggable({
+    containment: '.swim-lanes',
+    stack: '.swim-lanes'
+  });
 }
 
 // Todo: create a function to handle adding a new task
@@ -209,6 +227,7 @@ function handleAddTask() {
     state: "todo",
   };
 
+  //adds new task info to the task array and then pushes the info back into local storage
   tasks.push(newTask);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -217,7 +236,7 @@ function handleAddTask() {
 function handleDeleteTask(event) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   const tempArr = [];
-
+  //takes the deleted task's id and pushes all the id's except for the delted id into the list of id's 
   for (const task in tasks) {
     if (tasks[task].id === event) {
     } else {
@@ -230,7 +249,7 @@ function handleDeleteTask(event) {
   localStorage.setItem("tasks", JSON.stringify(tempArr));
 }
 
-// Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+// when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
   renderTaskList();
 
@@ -269,17 +288,18 @@ $(document).ready(function () {
   });
 });
 
-addTask.addEventListener("click", function () {
-  $("form").dialog({
-    modal: true,
-    title: "Add a task",
-    resizable: true,
-  });
-});
 
-const btn = document.querySelector("#task-submit");
 
+const btn = document.querySelector("#form-add-task");
+const cbtn = document.querySelector('#close-btn')
+
+//adds task and reloads the page
 btn.addEventListener("click", function () {
-  handleAddTask();
-  console.log("submitted a task");
+  handleAddTask()
+  location.reload()
 });
+
+//closes the modal form
+cbtn.addEventListener('click', function(){
+  location.reload()
+})
