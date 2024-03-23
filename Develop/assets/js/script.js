@@ -295,8 +295,16 @@ const cbtn = document.querySelector('#close-btn')
 
 //adds task and reloads the page
 btn.addEventListener("click", function () {
-  handleAddTask()
-  location.reload()
+  const taskName = document.getElementById("task-input").value;
+  const taskDate = document.getElementById("task-date").value;
+  const taskDesc = document.getElementById("task-desc").value;
+  if (taskName == '' || taskDate == '' || taskDesc == '') {
+    alert('please fill out all task information.')
+  }else{
+    handleAddTask()
+    location.reload()
+  }
+
 });
 
 //closes the modal form
