@@ -162,7 +162,7 @@ function createTaskCard(task) {
   const lane = taskInfo.state;
 
   const position = document.querySelector(`.${lane}`);
-  // console.log(position)
+  
   position.appendChild(container);
   container.appendChild(headDiv);
   headDiv.appendChild(title);
@@ -171,8 +171,7 @@ function createTaskCard(task) {
   container.appendChild(date);
   container.appendChild(del);
 
-  // console.log(taskInfo.name)
-  // console.log(taskList)
+ 
   container.setAttribute("id", `container-${taskInfo.id}`);
   title.innerText = taskInfo.name;
   desc.innerText = taskInfo.desc;
@@ -259,9 +258,9 @@ $(document).ready(function () {
       const id = str.replace("container-", "");
       const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-      console.log("dropped");
+      
       if (event.target.classList.contains("todo")) {
-        // console.log('still needs done')
+        
         for (const task in tasks) {
           if (tasks[task].id == id) {
             tasks[task].state = "todo";
